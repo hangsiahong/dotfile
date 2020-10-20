@@ -1,0 +1,33 @@
+{
+	"name": "theme-setimonokai",
+	"displayName": "Theme - Seti-Monokai",
+	"description": "Port of the Seti-Monokai color scheme",
+	"version": "0.0.1",
+	"publisher": "nerosiar",
+	"engines": {
+		"vscode": "^1.5.0"
+	},
+	"categories": [
+		"Themes"
+	],
+	"icon": "images/icon.png",
+	"homepage": "https://github.com/smukkekim/vscode-setimonokai-theme/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/smukkekim/vscode-setimonokai-theme.git"
+	},
+	"contributes": {
+		"themes": [
+			{
+				"label": "Seti Monokai",
+				"uiTheme": "vs-dark",
+				"path": "./themes/SetiMonokai.tmTheme"
+			}
+		]
+	},
+	"__metadata": {
+		"id": "faf0a058-1a9c-4cde-b22b-3bf7c8c068a0",
+		"publisherId": "8073b74a-7629-4ae8-a543-69cef0d2627d",
+		"publisherDisplayName": null
+	}
+}
