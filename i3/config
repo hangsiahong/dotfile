@@ -14,7 +14,8 @@ set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Meslo LG L 14
+#font pango:JetBrainsMono NF  14
+font pango:Cousine Nerd Font Mono 16
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -30,6 +31,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+
+exec /usr/bin/pasystray
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -210,6 +213,10 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+
+  colors {
+      focused_workspace  #FFFFFF #FFFFFF #000000
+    }
 }
 
 
@@ -217,4 +224,47 @@ bar {
 ##client.focused #FFFFFF #F6FFFC #000000 #000000      #FFFFFF
 #
 
-client.focused #000000 #000000 #FFE079 #FFC524   #2C0C93
+client.focused #000000 #000000 #FFA717 #FFC524   #2C0C93
+
+# New tiling windows with title bar and borders
+new_window normal 2
+# New floating windows with title bar and without borders
+new_float normal 0
+# Hide borders on edges
+hide_edge_borders both
+
+# Set variables for floating and un-floating commands
+set $FLOAT floating enable, border normal 0
+set $UNFLOAT floating disable, border normal 2
+
+# Key bindings
+# Switch between tiling and floating layer (Super+Space)
+bindcode Mod4+65 focus mode_toggle
+# Put windows on floating layer and remove borders (Super+Shift+Space)
+bindcode Mod4+Shift+65 $FLOAT
+# Make windows on tiling layer and add borders (Super+Control+Space)
+bindcode Mod4+Control+65 $UNFLOAT
+
+# # Auto-float some windows
+# for_window [class="SomeClass"] $FLOAT
+# for_window [title="ThisTitle"] $FLOAT
+# # Auto-un-float some other windows
+# for_window [class="SomeOtherClass" window_type="dialog"] $UNFLOAT
+# for_window [title="ThatTitle"] $UNFLOAT
+
+# border / titlebar
+new_window normal
+hide_edge_borders vertical
+bindsym Control+Shift+x [class="^.*"] border toggle
+for_window [class="^.*"] border pixel 1
+for_window [class="URxvt"] border normal
+for_window [class="Leafpad"] border normal
+for_window [class="Lxappearance"] border normal
+for_window [class="Vlc"] border pixel 0
+for_window [class="mpv"] border pixel 0
+for_window [class="Pcmanfm"] border pixel 0
+for_window [class="Firefox"] border pixel 0
+for_window [class="Geary"] border pixel 0
+for_window [class="Lmms"] border pixel 0
+for_window [class="Feh"] border pixel 0
+for_window [class="Konsole"] border pixel 0
