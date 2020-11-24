@@ -43,7 +43,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec konsole
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -215,6 +215,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+	position top
         status_command i3status
         # status_command exec ~/bin/mybar
         # DejaVu Sans Mono 10
@@ -287,4 +288,4 @@ bindsym $mod+b bar mode toggle
 
 
 # Set Wallpaper
-exec_always feh --bg-scale ~/mywallpapers/akat.png
+#
