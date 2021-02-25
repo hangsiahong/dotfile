@@ -11,13 +11,13 @@
 set $mod Mod1
 
 # gap
-gaps inner 15
-gaps outer 15
+#gaps inner 1
+#gaps outer 1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:JetBrainsMono NF  14
-font pango:Iosevka 14
+font pango:SF Mono 14
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -56,7 +56,7 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec dmenu_run
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show run -bg "#222222" -fg "#2ECC71" -hlbg "#445544" -hlfg "#2EEE71" -bw 4 -eh 1 -font "Iosevka 18" -opacity "80" -lines 8 -line-margin 4 -width 100 -padding 160 -terminal urxvtc
+bindsym $mod+d exec rofi -show run -bg "#222222" -fg "#2ECC71" -hlbg "#445544" -hlfg "#2EEE71" -bw 4 -eh 1 -font "Monospace 18" -opacity "80" -lines 8 -line-margin 4 -width 100 -padding 160 -terminal urxvtc
 
 
 # task switcher - rofi
@@ -69,7 +69,7 @@ bindsym Mod1+Tab \
   -bg        "#222222"  -fg        "#2ECC71" \
   -hlbg      "#2ECC71"  -hlfg      "#222222" \
   -bg-active "#222222"  -fg-active "#2288DD" \
-  -font      "Iosevka 12"   -opactiy 80
+  -font      "Monospace 12"   -opactiy 80
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -218,16 +218,16 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-	position top
-        status_command i3status
-        # status_command exec ~/bin/mybar
-        # DejaVu Sans Mono 10
-
-  colors {
-      focused_workspace  #FFFFFF #FFFFFF #000000
-    }
-}
+#bar {
+#	position top
+#        status_command i3status
+#        # status_command exec ~/bin/mybar
+#        # DejaVu Sans Mono 10
+#
+#  colors {
+#      focused_workspace  #FFFFFF #FFFFFF #000000
+#    }
+#}
 
 
 # White Border
@@ -309,10 +309,58 @@ popup_during_fullscreen smart
 
 # Set Key to US
 exec setxkbmap us
-exec setxkbmap -option caps:swapescape
+#exec setxkbmap -option caps:swapescape
+#exec xmodmap ~/.Xmodmap
+# set cursor speed
+exec xset r rate 300 50 
 
-# auto exec Chrome
-exec chromium
 
-# Start libinput-gesture
-exec libinput-gestures
+# restore wall
+exec nitrogen --restore &&
+
+# xmodmap
+exec sh xmodmap ~/.Xmodmap
+
+
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id picom -b -c
+
+
+
+#---( colors table )---#
+
+# cOne is color one and cTwo is colorTwo
+set $cOne #dfaf87
+set $cTwo #1d2021
+
+# colour of border, background, text, indicator, and child_border
+client.focused          $cOne $cTwo $cOne $cOne $cOne
+client.focused_inactive $cTwo $cTwo $cOne $cTwo $cTwo
+client.unfocused        $cTwo $cTwo $cOne $cTwo $cTwo
+client.urgent           $cTwo $cTwo $cOne $cTwo $cTwo
+client.placeholder      $cTwo $cTwo $cOne $cTwo $cTwo
+client.background       $cTwo
+
+#---( windows rules )---#
+
+for_window [class="^.*"] border pixel 3
+for_window [class="jetbrains-.*" title="win0"] floating enable border none
+for_window [class="java-lang-Thread" title="win0"] floating enable border none
+
+# Float by name
+for_window [title="Install user style"] floating enable
+
+# Float by type
+for_window [instance="fontpreview"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+#---( focus related )---)
+focus_follows_mouse no
+
+no_focus [window_role="pop-up"]
+no_focus [window_type="notification"]
+focus_on_window_activation none
