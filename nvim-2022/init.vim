@@ -1,0 +1,241 @@
+let mapleader ="\<Space>"
+
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
+
+" Quick Save
+nmap <leader>w :w<CR>
+nmap <leader>q :q!<CR>
+
+" Open new file adjacent to current file
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+"" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Move by line
+nnoremap j gj
+nnoremap k gk
+
+" without shift
+nnoremap ; :
+"if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
+"	echo "Downloading junegunn/vim-plug to manage plugins..."
+"	silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
+"	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim
+"	autocmd VimEnter * PlugInstall
+"endif
+
+"call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
+"Plug 'tpope/vim-surround'
+"Plug 'preservim/nerdtree'
+"Plug 'junegunn/goyo.vim'
+"Plug 'jreybert/vimagit'
+"Plug 'vimwiki/vimwiki'
+"Plug 'bling/vim-airline'
+"Plug 'ap/vim-css-color'
+
+"call plug#end()
+
+
+call plug#begin()
+
+Plug 'ciaranm/securemodelines'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'justinmk/vim-sneak'
+
+" GUI enhancements
+Plug 'itchyny/lightline.vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'andymass/vim-matchup'
+Plug 'ap/vim-css-color'
+
+" Fuzzy finder
+Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Semantic language support
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Syntactic language support
+Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
+Plug 'rust-lang/rust.vim'
+Plug 'rhysd/vim-clang-format'
+"Plug 'fatih/vim-go'
+Plug 'dag/vim-fish'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+Plug 'preservim/nerdtree'
+Plug 'junegunn/goyo.vim'
+
+Plug 'lukesmithxyz/vimling'
+Plug 'tpope/vim-commentary'
+
+" Vim Clap
+Plug 'liuchengxu/vim-clap'
+
+" Build the extra binary if cargo exists on your system.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+" The bang version will try to download the prebuilt binary if cargo does not exist.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
+" :Clap install-binary[!] will always try to compile the binary locally,
+" if you do care about the disk used for the compilation, try using the force download way,
+" which will download the prebuilt binary even you have installed cargo.
+Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
+
+" `:Clap install-binary[!]` will run using the terminal feature which is inherently async.
+" If you don't want that and hope to run the hook synchorously:
+Plug 'liuchengxu/vim-clap', { 'do': has('win32') ? 'cargo build --release' : 'make' }
+
+" Rust Tool
+Plug 'simrat39/rust-tools.nvim'
+
+Plug 'neovim/nvim-lspconfig'
+
+Plug 'rhysd/rust-doc.nvim'
+call plug#end()
+
+
+set title
+set bg=light
+set go=a
+set mouse=a
+set nohlsearch
+set clipboard+=unnamedplus
+set noshowmode
+set noruler
+set laststatus=0
+set noshowcmd
+
+" Some basics:
+	nnoremap c "_c
+	set nocompatible
+	filetype plugin on
+	syntax on
+	set encoding=utf-8
+	set number relativenumber
+" Enable autocompletion:
+	" set wildmode=longest,list,full
+" Disables automatic commenting on newline:
+	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" Perform dot commands over visual blocks:
+	vnoremap . :normal .<CR>
+" Goyo plugin makes text more readable when writing prose:
+	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
+" Spell-check set to <leader>o, 'o' for 'orthography':
+	map <leader>o :setlocal spell! spelllang=en_us<CR>
+" Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
+	set splitbelow splitright
+
+" Nerd tree
+	map <leader>n :NERDTreeToggle<CR>
+	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    if has('nvim')
+        let NERDTreeBookmarksFile = stdpath('data') . '/NERDTreeBookmarks'
+    else
+        let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
+    endif
+
+" vimling:
+	nm <leader><leader>d :call ToggleDeadKeys()<CR>
+	imap <leader><leader>d <esc>:call ToggleDeadKeys()<CR>a
+	nm <leader><leader>i :call ToggleIPA()<CR>
+	imap <leader><leader>i <esc>:call ToggleIPA()<CR>a
+	nm <leader><leader>q :call ToggleProse()<CR>
+
+" Shortcutting split navigation, saving a keypress:
+	map <C-h> <C-w>h
+	map <C-j> <C-w>j
+	map <C-k> <C-w>k
+	map <C-l> <C-w>l
+
+" Replace ex mode with gq
+	map Q gq
+
+" Check file in shellcheck:
+	map <leader>s :Clap files<CR>
+
+" Open my bibliography file in split
+	map <leader>b :vsp<space>$BIB<CR>
+	map <leader>r :vsp<space>$REFER<CR>
+
+" Replace all is aliased to S.
+	nnoremap S :%s//g<Left><Left>
+
+" Compile document, be it groff/LaTeX/markdown/etc.
+	map <leader>c :w! \| !compiler "<c-r>%"<CR>
+
+" Open corresponding .pdf/.html or preview
+	map <leader>p :!opout <c-r>%<CR><CR>
+
+" Runs a script that cleans out tex build files whenever I close out of a .tex file.
+	autocmd VimLeave *.tex !texclear %
+
+" Ensure files are read as what I want:
+	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+	map <leader>v :VimwikiIndex
+	let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
+	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
+	autocmd BufRead,BufNewFile *.tex set filetype=tex
+
+" Save file as sudo on files that require root permission
+	cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
+" Enable Goyo by default for mutt writing
+	autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
+	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=light
+	autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
+	autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
+
+" Automatically deletes all trailing whitespace and newlines at end of file on save.
+	autocmd BufWritePre * %s/\s\+$//e
+    autocmd BufWritePre * %s/\n\+\%$//e
+    autocmd BufWritePre *.[ch] %s/\%$/\r/e
+
+" When shortcut files are updated, renew bash and ranger configs with new material:
+	autocmd BufWritePost bm-files,bm-dirs !shortcuts
+" Run xrdb whenever Xdefaults or Xresources are updated.
+	autocmd BufRead,BufNewFile xresources,xdefaults set filetype=xdefaults
+	autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
+" Recompile dwmblocks on config edit.
+	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
+
+" Turns off highlighting on the bits of code that are changed, so the line that is changed is highlighted but the actual text that has changed stands out on the line and is readable.
+if &diff
+    highlight! link DiffText MatchParen
+endif
+
+" Function for toggling the bottom statusbar:
+let s:hidden_all = 1
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
+nnoremap <leader>h :call ToggleHiddenAll()<CR>
+
+" vim CLap
+let g:clap_layout = { 'relative': 'editor' }
+let g:clap_theme = 'inkpot'
+
+let g:rust_doc#downloaded_rust_doc_dir = '~/Documents/rust-docs'
+" let g:rust_doc#vim_open_cmd
+" colorscheme inkpot
