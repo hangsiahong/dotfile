@@ -1,0 +1,8 @@
+#!/bin/sh
+
+unset XDG_SEAT
+unset XDG_SESSION_ID
+unset XDG_VTNR
+
+dbus-update-activation-environment --systemd --all
+dbus-update-activation-environment --systemd  DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
