@@ -1,4 +1,6 @@
 #!/bin/bash
+# Incase cannot use this script to make swap can use link down below to manually setup
+# https://askubuntu.com/questions/33697/how-do-i-add-swap-after-system-installation
 set -e  # bail if anything goes wrong
 
 is_root(){
