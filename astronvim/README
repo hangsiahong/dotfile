@@ -1,3 +1,5 @@
 # READ THIS
 # https://github.com/AstroNvim/AstroNvim
+# https://www.youtube.com/watch?v=ifaLk5v3W90
+rustup +nightly component add rust-analyzer-preview
 
