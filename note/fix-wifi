@@ -1,0 +1,2 @@
+echo "blacklist hp_wmi" > /etc/modprobe.d/hp.conf
+rfkill unblock all
