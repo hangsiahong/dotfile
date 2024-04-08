@@ -1,0 +1,10 @@
+{
+    "hasWindows": true,
+    "components": ["networkAgent"],
+    "panel": { "left": [],
+               "center": [],
+               "right": ["a11y", "keyboard", "aggregateMenu"]
+    },
+    "stylesheetName": "gnome-shell.css",
+    "themeResourceName": "gdm-theme.gresource"
+}

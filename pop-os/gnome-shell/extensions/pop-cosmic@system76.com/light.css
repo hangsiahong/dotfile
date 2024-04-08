@@ -1,0 +1,36 @@
+.cosmic-applications-dialog {
+	box-shadow: 0 2px 4px 2px rgba(0,0,0,0.1);
+}
+
+.cosmic-applications-dialog .overview-icon {
+	color: black;
+}
+
+.app-well-app:focus .overview-icon {
+	background-color: #9b9b9b;
+}
+
+.app-well-app:hover .overview-icon, .app-well-app:selected .overview-icon {
+	background-color: #d0d0d0;
+}
+
+.cosmic-applications-icon {
+	color: #555555;
+}
+
+.cosmic-applications-folder-title {
+	color: #555555;
+}
+
+.cosmic-applications-available {
+	color: black;
+}
+
+.cosmic-folder-edit-button {
+	color: #555555;
+	background: #f2f1ef;
+}
+
+.cosmic-folder-edit-button:hover {
+	background: #f8f8f7;
+}
